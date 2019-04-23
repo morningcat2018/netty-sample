@@ -1,8 +1,12 @@
 package morning.cat.netty4.x.server.handle;
 
-import io.netty.channel.*;
-
-import java.net.SocketAddress;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufAllocator;
+import io.netty.buffer.ByteBufUtil;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelOutboundHandlerAdapter;
 
 /**
  * @describe: 类描述信息
@@ -10,39 +14,44 @@ import java.net.SocketAddress;
  * @date: 2019/4/23 3:41 PM
  * @see ChannelOutboundHandlerAdapter,ChannelInboundHandlerAdapter
  */
-public class EchoServerHandle extends ChannelOutboundHandlerAdapter {
+public class EchoServerHandle extends ChannelInboundHandlerAdapter {
 
     @Override
-    public void connect(ChannelHandlerContext ctx, SocketAddress remoteAddress, SocketAddress localAddress, ChannelPromise promise) throws Exception {
-        System.out.println("新客户端连接");
-        super.connect(ctx, remoteAddress, localAddress, promise);
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("channelActive");
+        super.channelActive(ctx);
     }
 
     @Override
-    public void disconnect(ChannelHandlerContext ctx, ChannelPromise promise) throws Exception {
-        System.out.println("客户端断开连接");
-        super.disconnect(ctx, promise);
+    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("channelInactive");
+        super.channelInactive(ctx);
     }
 
     @Override
-    public void close(ChannelHandlerContext ctx, ChannelPromise promise) throws Exception {
-        System.out.println("客户端关闭");
-        super.close(ctx, promise);
+    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        System.out.println("channelRead");
+
+        ByteBuf byteBuf = ByteBufUtil.writeUtf8(ByteBufAllocator.DEFAULT, "server已收到此消息\n");
+        ctx.write(byteBuf);
+        //super.channelRead(ctx, msg);
     }
 
     @Override
-    public void read(ChannelHandlerContext ctx) throws Exception {
-        super.read(ctx);
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        System.out.println("channelReadComplete");
+
+//        Channel channel = ctx.channel();
+//        channel.writeAndFlush();
+
+        ctx.flush();
+        //super.channelReadComplete(ctx);
     }
 
     @Override
-    public void write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise) throws Exception {
-
-        Channel channel = ctx.channel();
-        channel.writeAndFlush("已收到此消息");
-
-        super.write(ctx, msg, promise);
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        System.out.println("exceptionCaught");
+        super.exceptionCaught(ctx, cause);
     }
-
 
 }

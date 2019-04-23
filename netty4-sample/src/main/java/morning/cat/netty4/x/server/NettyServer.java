@@ -4,8 +4,7 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import morning.cat.netty4.x.server.handle.HelloHandle;
-import morning.cat.netty4.x.server.handle.TimeServerHandler;
+import morning.cat.netty4.x.server.handle.EchoServerHandle;
 
 /**
  * @describe: Netty4.x Server
@@ -46,7 +45,7 @@ public class NettyServer {
                     //channelPipeline.addLast("HelloHandle", new HelloHandle());
 
                     //
-                    channelPipeline.addLast("HelloHandle", new TimeServerHandler());
+                    channelPipeline.addLast("HelloHandle", new EchoServerHandle());
                 }
             });
 
