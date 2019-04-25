@@ -4,7 +4,7 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import morning.cat.netty4.x.server.handle.EchoServerHandle;
+import morning.cat.netty4.x.server.handle.TimeServerHandler;
 
 /**
  * @describe: Netty4.x Server
@@ -19,6 +19,10 @@ public class NettyServer {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
+
+        EventLoop loop;
+        Channel channel;
+
         try {
 
             // 服务端
@@ -28,7 +32,7 @@ public class NettyServer {
             serverBootstrap.group(bossGroup, workerGroup);
             serverBootstrap.channel(NioServerSocketChannel.class);
 
-            // 设置管道工厂
+            // 设置管道工厂 ChannelHandler
             serverBootstrap.childHandler(new ChannelInitializer<Channel>() {
                 @Override
                 protected void initChannel(Channel channel) throws Exception {
@@ -45,7 +49,9 @@ public class NettyServer {
                     //channelPipeline.addLast("HelloHandle", new HelloHandle());
 
                     //
-                    channelPipeline.addLast("HelloHandle", new EchoServerHandle());
+                    //channelPipeline.addLast("HelloHandle", new EchoServerHandle());
+
+                    channelPipeline.addLast("TimeServerHandler", new TimeServerHandler());
                 }
             });
 
