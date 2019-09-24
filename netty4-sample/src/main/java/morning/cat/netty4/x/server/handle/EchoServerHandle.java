@@ -8,6 +8,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelOutboundHandlerAdapter;
 
+import java.nio.charset.Charset;
+
 /**
  * @describe: 类描述信息
  * @author: morningcat.zhang
@@ -30,10 +32,16 @@ public class EchoServerHandle extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("channelRead");
+        System.out.println("channelRead ----->");
+        if (msg instanceof ByteBuf) {
+            ByteBuf byteBuf = (ByteBuf) msg;
+            System.out.println(byteBuf.toString(Charset.defaultCharset()));
 
-        ByteBuf byteBuf = ByteBufUtil.writeUtf8(ByteBufAllocator.DEFAULT, "server已收到此消息\n");
-        ctx.write(byteBuf);
+        }
+
+
+        //ByteBuf byteBuf = ByteBufUtil.writeUtf8(ByteBufAllocator.DEFAULT, "server已收到此消息\n");
+        //ctx.write(byteBuf);
         //super.channelRead(ctx, msg);
     }
 

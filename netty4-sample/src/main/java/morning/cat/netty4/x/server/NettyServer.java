@@ -4,7 +4,9 @@ import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import morning.cat.netty4.x.server.handle.TimeServerHandler;
+import io.netty.handler.codec.string.StringDecoder;
+import morning.cat.netty4.x.server.handle.EchoServerHandle;
+import morning.cat.netty4.x.server.handle.HelloHandle;
 
 /**
  * @describe: Netty4.x Server
@@ -16,12 +18,8 @@ public class NettyServer {
     public static void main(String[] args) throws InterruptedException {
 
         // 用来处理I/O操作的多线程事件循环器
-        EventLoopGroup bossGroup = new NioEventLoopGroup();
+        EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
-
-
-        EventLoop loop;
-        Channel channel;
 
         try {
 
@@ -46,12 +44,12 @@ public class NettyServer {
                     //
                     //channelPipeline.addLast("EchoServerHandle", new EchoServerHandle());
                     //
-                    //channelPipeline.addLast("HelloHandle", new HelloHandle());
+                    // channelPipeline.addLast("HelloHandle", new HelloHandle());
 
                     //
-                    //channelPipeline.addLast("HelloHandle", new EchoServerHandle());
+                    channelPipeline.addLast("HelloHandle", new EchoServerHandle());
 
-                    channelPipeline.addLast("TimeServerHandler", new TimeServerHandler());
+                    // channelPipeline.addLast("TimeServerHandler", new TimeServerHandler());
                 }
             });
 
@@ -62,7 +60,7 @@ public class NettyServer {
             // 绑定端口
             // telnet 127.0.0.1 9997
             // Bind and start to accept incoming connections.
-            ChannelFuture channelFuture = serverBootstrap.bind(9997).sync();
+            ChannelFuture channelFuture = serverBootstrap.bind(51001).sync();
             System.out.println("Netty4 Server start...");
 
 
@@ -70,6 +68,7 @@ public class NettyServer {
             // In this example, this does not happen, but you can do that to gracefully
             // shut down your server.
             channelFuture.channel().closeFuture().sync();
+            System.out.println("closeFuture");
         } finally {
             // 关闭资源
             workerGroup.shutdownGracefully();

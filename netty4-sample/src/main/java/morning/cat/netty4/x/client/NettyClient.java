@@ -4,7 +4,11 @@ import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.channel.socket.nio.NioSocketChannel;
 import morning.cat.netty4.x.client.handle.ClientHandle;
+import morning.cat.netty4.x.client.handle.EchoClientHandler;
+
+import java.util.Scanner;
 
 /**
  * @describe: 类描述信息
@@ -24,7 +28,7 @@ public class NettyClient {
 
             // 设置 NioSocket 工厂
             clientBootstrap.group(workerGroup);
-            clientBootstrap.channel(NioServerSocketChannel.class);
+            clientBootstrap.channel(NioSocketChannel.class);
 
 
             // 设置管道工厂
@@ -33,7 +37,7 @@ public class NettyClient {
                 protected void initChannel(Channel channel) throws Exception {
 
                     ChannelPipeline channelPipeline = channel.pipeline();
-                    channelPipeline.addLast("HelloHandle", new ClientHandle());
+                    channelPipeline.addLast("ClientHandle", new EchoClientHandler());
                 }
             });
 
@@ -41,10 +45,24 @@ public class NettyClient {
             clientBootstrap.option(ChannelOption.SO_BACKLOG, 128);
 
             // 连接服务端
-            ChannelFuture channelFuture = clientBootstrap.connect("127.0.0.1", 9997).sync();
+            ChannelFuture channelFuture = clientBootstrap.connect("127.0.0.1", 51001).sync();
             System.out.println("Netty4 Client start...");
 
-            channelFuture.channel().closeFuture().sync();
+
+            //channelFuture.channel().closeFuture().sync();
+
+//            Channel channel = channelFuture.channel();
+//            Scanner scanner = new Scanner(System.in);
+//            while (true) {
+//                System.out.print("请输入：");
+//                String ss = scanner.next();
+//                if (ss.equals("exit")) {
+//                    break;
+//                }
+//                channel.writeAndFlush(ss);
+//            }
+
+
         } finally {
             // 关闭资源
             workerGroup.shutdownGracefully();

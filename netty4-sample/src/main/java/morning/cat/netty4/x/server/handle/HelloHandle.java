@@ -14,7 +14,7 @@ public class HelloHandle extends SimpleChannelInboundHandler<String> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, String msg) throws Exception {
-        System.out.println(msg);
+        System.out.println("收到消息：" + msg);
 
         ChannelPipeline channelPipeline = ctx.channel().pipeline();
         channelPipeline.write("ok");
