@@ -30,20 +30,19 @@ public class NettyServer {
         bootstrap.setFactory(new NioServerSocketChannelFactory(boss, work));
 
         // 设置 ChannelPipelineFactory 工厂
-        bootstrap.setPipelineFactory(new ChannelPipelineFactory() {
-            public ChannelPipeline getPipeline() throws Exception {
+        bootstrap.setPipelineFactory(() -> {
 
-                // 生成管道
-                ChannelPipeline channelPipeline = Channels.pipeline();
+                    // 生成管道
+                    ChannelPipeline channelPipeline = Channels.pipeline();
 
-                // 接收信息转换成字符串(上行)
-                // channelPipeline.addLast("StringDecoder",new StringDecoder());
-                // 回写直接写入字符串
-                // channelPipeline.addLast("StringEncoder",new StringEncoder());
-                channelPipeline.addLast("HelloHandle", new HelloHandle());
-                return channelPipeline;
-            }
-        });
+                    // 接收信息转换成字符串(上行)
+                    // channelPipeline.addLast("StringDecoder",new StringDecoder());
+                    // 回写直接写入字符串
+                    // channelPipeline.addLast("StringEncoder",new StringEncoder());
+                    channelPipeline.addLast("HelloHandle", new HelloHandle());
+                    return channelPipeline;
+                }
+        );
 
         // 绑定端口
         bootstrap.bind(new InetSocketAddress(59999));
