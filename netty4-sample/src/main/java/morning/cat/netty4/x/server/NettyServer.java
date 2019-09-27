@@ -58,7 +58,7 @@ public class NettyServer {
             serverBootstrap.childOption(ChannelOption.SO_KEEPALIVE, true);
 
             // 绑定端口
-            // telnet 127.0.0.1 9997
+            // telnet 127.0.0.1 51001
             // Bind and start to accept incoming connections.
             ChannelFuture channelFuture = serverBootstrap.bind(51001).sync();
             System.out.println("Netty4 Server start...");
