@@ -10,7 +10,7 @@ import morning.cat.netty4.server.channel.ChannelInitializerTest1;
 public class NettyMain {
 
     /**
-     * curl "http://localhost:51001"
+     * curl "http://localhost:51001/hello/str?name=cat&age=18"
      */
     public static void main(String[] args) {
         NettyServer nettyServer = new NettyServerImpl();
