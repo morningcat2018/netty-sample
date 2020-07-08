@@ -11,9 +11,5 @@
 
     <artifactId>netty-client</artifactId>
 
-    <dependencies>
-
-    </dependencies>
-
 
 </project>
