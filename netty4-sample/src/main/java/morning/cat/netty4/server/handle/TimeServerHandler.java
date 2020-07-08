@@ -1,4 +1,4 @@
-package morning.cat.netty4.x.server.handle;
+package morning.cat.netty4.server.handle;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelFuture;

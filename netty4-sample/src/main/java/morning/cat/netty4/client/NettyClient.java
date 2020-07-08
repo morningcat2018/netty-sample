@@ -1,14 +1,10 @@
-package morning.cat.netty4.x.client;
+package morning.cat.netty4.client;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import morning.cat.netty4.x.client.handle.ClientHandle;
-import morning.cat.netty4.x.client.handle.EchoClientHandler;
-
-import java.util.Scanner;
+import morning.cat.netty4.client.handle.EchoClientHandler;
 
 /**
  * @describe: 类描述信息

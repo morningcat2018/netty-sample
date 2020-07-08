@@ -1,7 +1,6 @@
-package morning.cat.netty4.x.client.handle;
+package morning.cat.netty4.client.handle;
 
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelPipeline;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 /**

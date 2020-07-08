@@ -1,12 +1,10 @@
-package morning.cat.netty4.x.server;
+package morning.cat.netty4.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.string.StringDecoder;
-import morning.cat.netty4.x.server.handle.EchoServerHandle;
-import morning.cat.netty4.x.server.handle.HelloHandle;
+import morning.cat.netty4.server.handle.EchoServerHandle;
 
 /**
  * @describe: Netty4.x Server

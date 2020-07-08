@@ -1,4 +1,4 @@
-package morning.cat.netty4.x.client.handle;
+package morning.cat.netty4.client.handle;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
