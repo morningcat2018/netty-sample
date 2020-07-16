@@ -14,6 +14,7 @@ public class SpringFrameworkTest2 {
 
     public static void main(String[] args) {
         ClassPathXmlApplicationContext beanFactory = new ClassPathXmlApplicationContext("applicationContext.xml");
+
         Person person = beanFactory.getBean("person", Person.class);
         System.out.println(person);
 

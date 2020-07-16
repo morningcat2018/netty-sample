@@ -18,7 +18,8 @@ public class SpringFrameworkTest3 {
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
         applicationContext.register(MyConfig.class);
         applicationContext.refresh();
-        Person person = applicationContext.getBean(Person.class);
+
+        Person person = applicationContext.getBean("person", Person.class);
         System.out.println(person);
         applicationContext.close();
     }

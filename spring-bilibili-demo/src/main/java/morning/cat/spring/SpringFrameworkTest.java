@@ -20,8 +20,11 @@ public class SpringFrameworkTest {
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
         XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
         reader.loadBeanDefinitions(resource);
+
         Person person = beanFactory.getBean("person", Person.class);
         System.out.println(person);
+
+
 
 
 
