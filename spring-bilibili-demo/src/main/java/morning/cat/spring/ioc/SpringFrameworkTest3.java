@@ -1,4 +1,4 @@
-package morning.cat.spring;
+package morning.cat.spring.ioc;
 
 import morning.cat.spring.bean.Person;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;

@@ -12,4 +12,37 @@
 
     <!-- more bean definitions go here -->
 
+
+    <bean id="simpleAdvisor" class="morning.cat.spring.aop.advisor.SimpleAdvisor"></bean>
+    <bean id="helloService" class="morning.cat.spring.service.impl.HelloServiceImpl"></bean>
+
+    <!--针对目标对象来创建代理对象，将对目标对象方法的调用转到对相应代理对象的方法调用，
+    并且可以在代理对象方法调用前后执行与之匹配的各个通知器中定义好的方法-->
+    <bean id="helloServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!--代理对象所实现的接口-->
+        <property name="proxyInterfaces">
+            <value>morning.cat.spring.service.HelloService</value>
+            <!--<value></value>-->
+        </property>
+
+        <!--通知器列表-->
+        <property name="interceptorNames">
+            <list>
+                <value>simpleAdvisor</value>
+            </list>
+        </property>
+
+        <!--目标对象-->
+        <property name="target">
+            <ref bean="helloService"></ref>
+        </property>
+    </bean>
+    <!--创建目标代理对象-->
+    <!--1. JDK动态代理-->
+    <!--2. CGlib (使用继承的方法实现代理，不能代理 final class )-->
+    <!--3. ObjenesisCglibAopProxy-->
+
+    <!--AopProxy -> JdkDynamicAopProxy -> CglibAopProxy -> ObjenesisCglibAopProxy(since4.0) -->
+
+
 </beans>
